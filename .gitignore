@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Xago/.vs
+/Xago/Xago.Integrations/bin/Debug/net7.0
+/Xago/Xago.Integrations/obj
+/Xago/Xago.Integrations.Tests/bin/Debug/net7.0
+/Xago/Xago.Integrations.Tests/obj
