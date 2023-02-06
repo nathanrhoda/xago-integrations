@@ -8,3 +8,4 @@
 /Xago/Xago.Integrations/obj
 /Xago/Xago.Integrations.Tests/bin/Debug/net7.0
 /Xago/Xago.Integrations.Tests/obj
+/Xago/Xago.Integrations.Tests/appSettings.local.json

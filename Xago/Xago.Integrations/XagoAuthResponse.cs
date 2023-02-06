@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Xago.Integrations
 {
-    public class XagoClient
+    public class XagoAuthResponse
     {
-
+        public string tokenValue { get; set; }
     }
 }
