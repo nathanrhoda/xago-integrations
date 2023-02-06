@@ -1,23 +1,19 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Security.Authentication.ExtendedProtection;
 
 namespace Xago.Integrations.Tests
 {
-    public class XagoClientTests
+    public class XagoAuthClientTests
     {
         protected IConfiguration Configuration;
         protected static IHttpClientFactory? _httpClientFactory;
         protected static IServiceCollection? _serviceCollection;
-        private readonly string AuthClient = "XagoAuth";
+        
 
-        public XagoClientTests(string settingsFile = "appSettings.local.json")
+        public XagoAuthClientTests(string settingsFile = "appSettings.local.json")
         {
             _serviceCollection = new ServiceCollection();
-            _serviceCollection.AddHttpClient(AuthClient, client =>
+            _serviceCollection.AddHttpClient(XagoAuthClient.AuthClient, client =>
             {
                 client.BaseAddress = new Uri(Configuration.GetSection("authUrl").Value);
                 client.DefaultRequestHeaders.Accept.Clear();
@@ -31,20 +27,18 @@ namespace Xago.Integrations.Tests
             var serviceProvider = _serviceCollection.BuildServiceProvider();
             _httpClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
         }
-
+        
         [Fact]
         public async void GetToken_WhereValidCredentialsSupplied_ReturnsValidToken()
         {
+            var xagoAuthClient = new XagoAuthClient(_httpClientFactory);            
             HttpRequestMessage request = XagoObjectMother.AuthRequest(Configuration);
 
-            var client = _httpClientFactory.CreateClient(AuthClient);
-            var response = await client.SendAsync(request);
-            var responseData = await response.Content.ReadAsStringAsync();
-            var xagoAuthResponse = JsonConvert.DeserializeObject<XagoAuthResponse>(responseData);
-            Assert.NotNull(xagoAuthResponse);
-            Assert.True(xagoAuthResponse.tokenValue.Length > 0);
+            var response = await xagoAuthClient.GetToken(request);
+            
+            Assert.NotNull(response);
+            Assert.True(response.tokenValue.Length > 0);
         }
 
-        
     }
 }
