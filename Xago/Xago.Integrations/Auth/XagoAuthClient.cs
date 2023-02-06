@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Xago.Integrations
+namespace Xago.Integrations.Auth
 {
     public class XagoAuthClient
     {

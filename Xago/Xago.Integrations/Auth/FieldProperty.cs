@@ -1,11 +1,7 @@
-﻿namespace Xago.Integrations
+﻿namespace Xago.Integrations.Auth
 {
     public class FieldProperty
     {
-        public FieldProperty()
-        {
-        }
-
         public FieldProperty(string fieldName, string fieldValue)
         {
             this.fieldName = fieldName;

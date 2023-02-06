@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Xago.Integrations.Auth;
 
 namespace Xago.Integrations.Tests
 {
