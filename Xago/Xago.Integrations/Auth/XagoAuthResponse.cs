@@ -8,6 +8,6 @@ namespace Xago.Integrations.Auth
 {
     public class XagoAuthResponse
     {
-        public string tokenValue { get; set; }
+        public string? tokenValue { get; set; }
     }
 }
