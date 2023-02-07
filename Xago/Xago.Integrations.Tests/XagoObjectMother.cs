@@ -31,9 +31,9 @@ namespace Xago.Integrations.Tests
 
             
 
-            var xagoRequest = new XagoAuthRequest(policyId, fields, multiFactor);
+            var authRequest = new XagoAuthRequest(policyId, fields, multiFactor);
 
-            var stringData = JsonConvert.SerializeObject(xagoRequest);
+            var stringData = JsonConvert.SerializeObject(authRequest);
             var requestContent = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
 
             var request = new HttpRequestMessage(HttpMethod.Post, path)
@@ -43,5 +43,16 @@ namespace Xago.Integrations.Tests
             request.Headers.Add("x-api-key", apiKey);
             return request;
         }
+
+        //public static HttpRequestMessage ExchangeRequest(IConfiguration configuration)
+        //{
+        //    var exchangeRequest = new XagoExchangeRequest
+        //    {
+        //        Source =
+        //        {
+                    
+        //        }
+        //    };
+        //}
     }
 }

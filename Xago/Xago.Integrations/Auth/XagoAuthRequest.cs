@@ -1,16 +1,25 @@
-﻿namespace Xago.Integrations.Auth
+﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
+namespace Xago.Integrations.Auth
 {
+    [Serializable]
     public class XagoAuthRequest
     {
         public XagoAuthRequest(string policyId, List<FieldProperty> fields, bool multiFactor)
         {
-            this.policyId = policyId;
-            this.fields = fields;
-            this.multiFactor = multiFactor;
+            this.PolicyId = policyId;
+            this.Fields = fields;
+            this.MultiFactor = multiFactor;
         }
 
-        public string policyId { get; private set; }
-        public List<FieldProperty> fields { get; private set; }
-        public bool multiFactor { get; private set; }
+        [JsonProperty("policyId")]
+        public string PolicyId { get; private set; }
+
+        [JsonProperty("fields")]
+        public List<FieldProperty> Fields { get; private set; }
+
+        [JsonProperty("mutliFactor")]
+        public bool MultiFactor { get; private set; }
     }
 }

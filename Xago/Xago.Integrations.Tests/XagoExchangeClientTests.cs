@@ -1,22 +1,22 @@
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xago.Integrations.Auth;
 
 namespace Xago.Integrations.Tests
 {
-    public class XagoAuthClientTests
+    public class XagoExchangeClientTests
     {
         protected IConfiguration Configuration;
         protected static IHttpClientFactory? _httpClientFactory;
         protected static IServiceCollection? _serviceCollection;
-        
 
-        public XagoAuthClientTests(string settingsFile = "appSettings.local.json")
+
+        public XagoExchangeClientTests(string settingsFile = "appSettings.local.json")
         {
             _serviceCollection = new ServiceCollection();
-            _serviceCollection.AddHttpClient(XagoAuthClient.AuthClient, client =>
+            _serviceCollection.AddHttpClient(XagoExchangeClient.AuthClient, client =>
             {
-                client.BaseAddress = new Uri(Configuration.GetSection("authUrl").Value);
+                client.BaseAddress = new Uri(Configuration.GetSection("exchangeUrl").Value);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             });
@@ -28,17 +28,16 @@ namespace Xago.Integrations.Tests
             var serviceProvider = _serviceCollection.BuildServiceProvider();
             _httpClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
         }
-        
-        [Fact]
-        public async void GetToken_WhereValidCredentialsSupplied_ReturnsValidToken()
-        {
-            var xagoAuthClient = new XagoAuthClient(_httpClientFactory);            
-            HttpRequestMessage request = XagoObjectMother.AuthRequest(Configuration);
 
-            var response = await xagoAuthClient.GetToken(request);
-            
-            Assert.NotNull(response);
-            Assert.True(response.tokenValue.Length > 0);
-        }
+        //[Fact]
+        //public async void Transfer_WhereValidDetailsSupplied_ReturnsTransactionId()
+        //{ 
+        //    var client = new XagoExchangeClient(_httpClientFactory);
+        //    HttpRequestMessage request = XagoObjectMother.ExchangeRequest(Configuration);
+
+        //    var response = await client.Transfer(request);
+
+        //    Assert.NotNull(response);
+        //}
     }
 }
